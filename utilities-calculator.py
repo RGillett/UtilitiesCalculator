@@ -33,9 +33,12 @@ def show_bills(residents, bills, month):
     for resident in filtered_residents:
         resident.total -= total_initial / len(filtered_residents)
         
+    filtered_residents.sort(key=lambda resident: resident.name)
+
     for resident in filtered_residents:
         print(resident.name + ': ' + "{:.2f}".format(resident.total / 1000))
         resident.total = 0 + resident.initial
+    print('')
 
 
 ##############TESTS##############
@@ -59,7 +62,5 @@ with open('C:\\Users\\rgill\\Documents\\Code\\UtilitiesCalculator\\bills.csv', n
     for bill in csv_bills:
         bills.append(Bill(total=int(float(bill[3])*1000), start_date=datetime.datetime.strptime(bill[1], '%Y-%m-%d').date(), end_date=datetime.datetime.strptime(bill[2], '%Y-%m-%d').date()))
 
-for year in range(2017,2021):
-    for month in range(1,13):
-        print('')
-        show_bills(residents=residents, bills=bills, month=datetime.date(year, month, 1))
+for month in range(1,13):
+    show_bills(residents=residents, bills=bills, month=datetime.date(2020, month, 1))
